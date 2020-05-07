@@ -11,6 +11,7 @@ public class PickableObject : MonoBehaviour
     
     private bool isPlayerNear = false;
     private static readonly int DissolveAmount = Shader.PropertyToID("_DissolveAmount");
+    private Coroutine dissolveCoroutine;
 
     void Start()
     {
@@ -24,7 +25,8 @@ public class PickableObject : MonoBehaviour
         if (isPlayerNear)
         {
             if (Input.GetKeyDown(KeyCode.E))
-                StartCoroutine(Dissolve());
+                dissolveCoroutine = StartCoroutine(Dissolve());
+
         }
 
     }
@@ -57,8 +59,11 @@ public class PickableObject : MonoBehaviour
         {
             float dissolve = Mathf.Lerp(0, 2f, i);
             mat.SetFloat(DissolveAmount, dissolve);
-            yield return new WaitForSeconds(0.008f);
+            
+            float t = Time.time;                                            // Use this instead of
+            while(Time.time < t + 0.008f){ yield return null; }             // yield return new WaitForSeconds(0.008f);
         } 
+        StopCoroutine(dissolveCoroutine);
         gameObject.SetActive(false);
     }
 }
