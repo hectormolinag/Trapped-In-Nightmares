@@ -91,6 +91,8 @@ public class Player : MonoBehaviour
                 CameraFollowPoint.position = new Vector3(position.x, CameraFollowPoint.position.y, position.z);
             }
         }
+        
+        Debug.Log("Test for Github");
 
     }
 
