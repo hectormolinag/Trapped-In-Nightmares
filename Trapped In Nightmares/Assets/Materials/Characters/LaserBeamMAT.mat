@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LaserBeamMAT
+  m_Shader: {fileID: -6465566751694194690, guid: 4b1f987ef5a016c47aa1508a162f6fee,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_E9F19A82:
+        m_Texture: {fileID: 2800000, guid: d51e9f898eb80fd41b27e30529fb264f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_FC475901:
+        m_Texture: {fileID: 2800000, guid: d5f3c7f340fb4e6498ee1036a77a534c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_2BA7E85: 1
+    - Vector1_6B7CB73: 25
+    - Vector1_87F6366C: 0.371
+    - Vector1_D4E8406B: 0.705
+    m_Colors:
+    - Color_DD4469BC: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 1}
+    - Vector2_144A2E74: {r: -1.08, g: 0, b: 0, a: 0}
+    - Vector2_A2005A2E: {r: -0.7, g: 0, b: 0, a: 0}
