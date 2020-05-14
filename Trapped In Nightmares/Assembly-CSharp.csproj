@@ -100,14 +100,13 @@
      <Compile Include="Assets\Scripts\Dialogue System\DialogueTrigger.cs" />
      <Compile Include="Assets\Scripts\Events Manager\DoorController.cs" />
      <Compile Include="Assets\Scripts\Events Manager\EventsManager.cs" />
-     <Compile Include="Assets\Scripts\Events Manager\FallPlatform.cs" />
      <Compile Include="Assets\Scripts\Events Manager\TriggerArea.cs" />
      <Compile Include="Assets\Scripts\Events Manager\TriggerEvent.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
      <Compile Include="Assets\Scripts\NPC.cs" />
      <Compile Include="Assets\Scripts\PickableObject.cs" />
-     <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\RobotMovement.cs" />
+     <Compile Include="Assets\Scripts\Player\Player.cs" />
+     <Compile Include="Assets\Scripts\Player\RobotMovement.cs" />
      <Compile Include="Assets\Shaders\Dissolve\ControlDissolve.cs" />
      <Compile Include="Assets\Shaders\FlowerGrow\SetShaderValues.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

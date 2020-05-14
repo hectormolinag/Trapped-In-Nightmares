@@ -55,4 +55,14 @@ public class NPC : MonoBehaviour
     {
         DialogueManager.current.StartDialogue(dialogue);
     }
+
+    private void OnGrabArmRobot()
+    {
+        
+    }
+
+    private void onGrabBodyRobot()
+    {
+        
+    }
 }

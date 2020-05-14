@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,13 @@ public class DoorController : MonoBehaviour
         EventsManager.current.onDoorWayTriggerExit += OnDoorwayClose;   //Subscribe event
     }
 
+    private void OnDisable()
+    {
+        EventsManager.current.onDoorWayTriggerEnter -= OnDoorwayOpen;   
+
+        EventsManager.current.onDoorWayTriggerExit -= OnDoorwayClose;   
+    }
+
     private void OnDoorwayOpen()
     {
         LeanTween.moveLocalY(gameObject, riseAmount, 0.9f).setEaseOutQuad();
@@ -25,4 +33,6 @@ public class DoorController : MonoBehaviour
     {
         LeanTween.moveLocalY(gameObject, yPosStart, 0.7f).setEaseOutQuad();
     }
+    
+    
 }
