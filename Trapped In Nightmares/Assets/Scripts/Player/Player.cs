@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
         if (move != Vector3.zero)
             transform.forward = move;
         
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             _velocity.y += Mathf.Sqrt(JumpHeight * -2f * Gravity);
             anim.SetTrigger(Jump);

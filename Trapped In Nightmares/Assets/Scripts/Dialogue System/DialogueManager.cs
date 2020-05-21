@@ -8,10 +8,10 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager current;
     
-    [SerializeField] TMP_Text nameTextUI = null;
-    [SerializeField] TMP_Text dialogueTextUI = null;
-    [SerializeField] Image characterImageUI = null;
-    [SerializeField] Image BGImageUI = null;
+    [SerializeField] private TMP_Text nameTextUI = null;
+    [SerializeField] private TMP_Text dialogueTextUI = null;
+    [SerializeField] private Image characterImageUI = null;
+    [SerializeField] private Image BGImageUI = null;
 
     private Queue<string> sentences;
     private Queue<Sprite> sprites;

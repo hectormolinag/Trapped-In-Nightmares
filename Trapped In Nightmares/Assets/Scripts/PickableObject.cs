@@ -3,8 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PickableObjectsList
+{
+    Arms,
+    Body
+}
+
 public class PickableObject : MonoBehaviour
 {
+    public PickableObjectsList objectType;
     public ParticleSystem glowParticle;
     public ParticleSystem interactionParticle;
     public Material mat;
@@ -64,6 +71,12 @@ public class PickableObject : MonoBehaviour
             while(Time.time < t + 0.008f){ yield return null; }             // yield return new WaitForSeconds(0.008f);
         } 
         StopCoroutine(dissolveCoroutine);
+        
+        if(objectType == PickableObjectsList.Arms)
+            EventsManager.current.GrabArmRobot();  //Dispatch the event
+        else if(objectType == PickableObjectsList.Body)
+            EventsManager.current.GrabBodyRobot();  //Dispatch the event
+        
         gameObject.SetActive(false);
     }
 }

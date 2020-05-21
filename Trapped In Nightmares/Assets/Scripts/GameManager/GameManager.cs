@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public RobotMovement robot;
     public Transform CameraFollowPoint;
 
+    [Header("UI")] 
+    public GameObject dialogueBox;
     public Image fadeImage;
 
     public CinemachineVirtualCamera normalCamera;
@@ -30,6 +32,9 @@ public class GameManager : MonoBehaviour
     public Vector3 posToSpawnRobot;
 
     public bool canPlayerMove = true;
+
+    private Coroutine ResetCoroutine;
+    private Coroutine FadeCoroutine;
 
     private void Awake() 
    {
@@ -98,33 +103,56 @@ public class GameManager : MonoBehaviour
         shakeElapsedTime = time;
     }
 
-    public void GameOver()
+    public void DefineTargetDialogueCamera(WhosTalking talker)
     {
-
-        StartCoroutine(Reset());
-
-
+        if (talker == WhosTalking.Kid)
+        {
+            dialogueCamera.m_Follow = player.transform;
+        }
+        else if (talker == WhosTalking.Robot)
+            dialogueCamera.m_Follow = robot.transform;
+          
+        
     }
 
-    IEnumerator Reset()
+    public void GameOver()
+    {
+        ResetCoroutine = StartCoroutine(ResetGame());
+    }
+
+    public void Fade()
+    {
+        FadeCoroutine = StartCoroutine(FadeComplete());
+        robot.transform.position = player.transform.position - (-player.transform.forward);
+        robot.gameObject.SetActive(true);
+    }
+
+    private IEnumerator ResetGame()
     {
         CharacterController playerController = player.GetComponent<CharacterController>();
         canPlayerMove = false;
         StartCoroutine(FadeImage(false));
-        yield return new WaitForSeconds(1.5f);
-
+        
+        float t = Time.time;                                            // Use this instead of
+        while(Time.time < t + 1.5f ){ yield return null; }              // yield return new WaitForSeconds(1.5f);
+        
         playerController.enabled = false;
         Transform PlayerTf = player.transform;
         PlayerTf.position = posToSpawnPlayer;
         PlayerTf.rotation = Quaternion.identity;
         playerController.enabled = true;
-        robot.transform.position = PlayerTf.position - (-PlayerTf.forward);
+        
+        if(robot.gameObject.activeInHierarchy)
+            robot.transform.position = PlayerTf.position - (-PlayerTf.forward);
+        
         StartCoroutine(FadeImage(true));
         canPlayerMove = true;
+        
+        StopCoroutine(ResetCoroutine);
 
     }
 
-    IEnumerator FadeImage(bool fadeAway)
+    private IEnumerator FadeImage(bool fadeAway)
     {
         // fade from opaque to transparent
         if (fadeAway)
@@ -149,5 +177,18 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator FadeComplete()
+    {
+        StartCoroutine(FadeImage(false));
+        
+        float t = Time.time;                                 
+        while(Time.time < t + 1.5f) { yield return null; } 
+
+        StartCoroutine(FadeImage(true));
+        
+        StopCoroutine(FadeCoroutine);
+    }
+
 
 }
