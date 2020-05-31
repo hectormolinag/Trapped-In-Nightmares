@@ -91,6 +91,7 @@
      <Compile Include="Assets\LeanTween\Framework\LeanTest.cs" />
      <Compile Include="Assets\LeanTween\Framework\LeanTween.cs" />
      <Compile Include="Assets\LeanTween\Framework\LeanTweenExt.cs" />
+     <Compile Include="Assets\My\Scripts\PushObjects.cs" />
      <Compile Include="Assets\Scripts\AssignCamerasToManager.cs" />
      <Compile Include="Assets\Scripts\Boss-Snake\SnakeBoss.cs" />
      <Compile Include="Assets\Scripts\CheckPoints.cs" />

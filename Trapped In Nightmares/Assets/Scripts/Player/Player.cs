@@ -12,12 +12,12 @@ public class Player : MonoBehaviour
     public LayerMask Ground;
     public Vector3 Drag;
 
-    private CharacterController _controller;
-    private Vector3 _velocity;
+    private CharacterController controller;
+    private Vector3 velocity;
 
     private float y;
-    private bool _isGrounded = true;
-    private Transform _groundChecker;
+    private bool isGrounded = true;
+    private Transform groundChecker;
     private Animator anim;
 
     private Vector3 move;
@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private static readonly int IsPushing = Animator.StringToHash("isPushing");
     private static readonly int MoveX = Animator.StringToHash("moveX");
     private static readonly int MoveY = Animator.StringToHash("moveY");
+    
     private bool _isCameraFollowPointNotNull;
 
     void Start()
@@ -43,8 +44,8 @@ public class Player : MonoBehaviour
         _isCameraFollowPointNotNull = CameraFollowPoint != null;
         draggableObjectInRange = null;
         
-        _controller = GetComponent<CharacterController>();
-        _groundChecker = transform.GetChild(0);
+        controller = GetComponent<CharacterController>();
+        groundChecker = transform.GetChild(0);
         anim = GetComponent<Animator>();
 
     }
@@ -68,18 +69,18 @@ public class Player : MonoBehaviour
             move = Vector3.zero;
             anim.SetBool(IsMoving, false);
             
-            _velocity.y += Gravity * Time.deltaTime;
-            _velocity.y /= 1 + Drag.y * Time.deltaTime;
-            y = _velocity.y;
-            _velocity = _velocity.normalized;
-            _velocity.y = y;
-            _controller.Move(_velocity * Time.deltaTime);
+            velocity.y += Gravity * Time.deltaTime;
+            velocity.y /= 1 + Drag.y * Time.deltaTime;
+            y = velocity.y;
+            velocity = velocity.normalized;
+            velocity.y = y;
+            controller.Move(velocity * Time.deltaTime);
         }
     
         // UPDATE CAMERA FOLLOW POINT POSITION
         if (_isCameraFollowPointNotNull)
         {
-            if (_isGrounded)
+            if (isGrounded)
             {
                 Vector3 posCameraPoint = CameraFollowPoint.position;
                 var position = transform.position;
@@ -96,9 +97,9 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
-        if (_isGrounded && _velocity.y < 0)
-            _velocity.y = 0f;
+        isGrounded = Physics.CheckSphere(groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
+        if (isGrounded && velocity.y < 0)
+            velocity.y = 0f;
 
         move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
@@ -111,7 +112,7 @@ public class Player : MonoBehaviour
             move.z = 0f;
         }
         
-        _controller.Move(Vector3.ClampMagnitude(move, 1) * (Time.deltaTime * Speed));
+        controller.Move(Vector3.ClampMagnitude(move, 1) * (Time.deltaTime * Speed));
 
         //Jump Logic
         if (isHoldingBoxUp || isHoldingBoxDown || isHoldingBoxRight || isHoldingBoxLeft) return;
@@ -119,25 +120,25 @@ public class Player : MonoBehaviour
         if (move != Vector3.zero)
             transform.forward = move;
         
-        if (Input.GetButtonDown("Jump") && _isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            _velocity.y += Mathf.Sqrt(JumpHeight * -2f * Gravity);
+            velocity.y += Mathf.Sqrt(-JumpHeight * Gravity);
             anim.SetTrigger(Jump);
         }
 
-        _velocity.y += Gravity * Time.deltaTime;
+        velocity.y += Gravity * Time.deltaTime;
 
-        _velocity.x /= 1 + Drag.x * Time.deltaTime;
-        _velocity.y /= 1 + Drag.y * Time.deltaTime;
-        _velocity.z /= 1 + Drag.z * Time.deltaTime;
+        velocity.x /= 1 + Drag.x * Time.deltaTime;
+        velocity.y /= 1 + Drag.y * Time.deltaTime;
+        velocity.z /= 1 + Drag.z * Time.deltaTime;
 
-        y = _velocity.y;
+        y = velocity.y;
 
-        _velocity = _velocity.normalized;
+        velocity = velocity.normalized;
 
-        _velocity.y = y;
+        velocity.y = y;
 
-        _controller.Move(_velocity * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime);
     }
 
     private void UpdateAnimations()

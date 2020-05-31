@@ -57,10 +57,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-            isRobotMovingFreely = !isRobotMovingFreely;
+        if (robot.gameObject.activeInHierarchy)
+        {
+            if (Input.GetMouseButtonDown(1))
+                isRobotMovingFreely = !isRobotMovingFreely;
         
-        normalCamera.m_Follow = isRobotMovingFreely ? robot.transform : CameraFollowPoint;
+            normalCamera.m_Follow = isRobotMovingFreely ? robot.transform : CameraFollowPoint;
+        }
 
         CameraShake();
     }

@@ -60,7 +60,7 @@ public class RobotMovement : MonoBehaviour
         EmissionColorValue = 1f;
         robotMAT.SetColor(EmissionColor, new Color(EmissionColorValue, EmissionColorValue, EmissionColorValue));
 
-        transform.position = GameManager.Instance.posToSpawnRobot;
+        //transform.position = GameManager.Instance.posToSpawnRobot;
     }
 
     void Update()
