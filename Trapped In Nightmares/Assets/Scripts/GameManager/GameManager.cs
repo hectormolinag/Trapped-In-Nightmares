@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
@@ -17,10 +18,12 @@ public class GameManager : MonoBehaviour
     [Header("UI")] 
     public GameObject dialogueBox;
     public Image fadeImage;
-
+    [Header("Cinemachine Cameras")]
     public CinemachineVirtualCamera normalCamera;
     public CinemachineVirtualCamera dialogueCamera;
-
+    [Header("Lighting and Fog")] 
+    public Light globalSceneLight;
+    
     public bool isRobotMovingFreely = false;
     public bool isPlayerNearDraggable = false;
     public bool isDialogueEnabled = false;
@@ -52,6 +55,11 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(FadeImage(true));
         cameraNoise = normalCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        if (globalSceneLight != null)
+            globalSceneLight.intensity = 0.1f;
+
+        RenderSettings.fogDensity = 0.01f;
 
     }
 
@@ -127,7 +135,6 @@ public class GameManager : MonoBehaviour
     {
         FadeCoroutine = StartCoroutine(FadeComplete());
         robot.transform.position = player.transform.position - (-player.transform.forward);
-        robot.gameObject.SetActive(true);
     }
 
     private IEnumerator ResetGame()
@@ -191,6 +198,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(FadeImage(true));
         
         StopCoroutine(FadeCoroutine);
+    }
+
+    public void ChangeIntensityGlobalIlumination(float newIntensity)
+    {
+        if(globalSceneLight != null)
+            globalSceneLight.intensity = newIntensity;
+    }
+
+    public void ChangeFogIntensity(float newIntensity)
+    {
+        RenderSettings.fogDensity = newIntensity;
     }
 
 

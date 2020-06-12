@@ -17,6 +17,7 @@ public class RobotMovement : MonoBehaviour
     [SerializeField] Material robotMAT = null;
 
     [SerializeField] GameObject laserBeam = null;
+    [SerializeField] private float lightRobotIntensity = 60f;
 
     //public float headRotation;
 
@@ -60,6 +61,7 @@ public class RobotMovement : MonoBehaviour
         EmissionColorValue = 1f;
         robotMAT.SetColor(EmissionColor, new Color(EmissionColorValue, EmissionColorValue, EmissionColorValue));
 
+        lightRobot.intensity = lightRobotIntensity;
         //transform.position = GameManager.Instance.posToSpawnRobot;
     }
 
@@ -131,29 +133,15 @@ public class RobotMovement : MonoBehaviour
                     shootLaserBeamCoroutine = StartCoroutine(ShootLaserBeam());
 
                     currentTime = 0f;
-                    lightRobot.intensity = 0f;
-                    EmissionColorValue = 0f;
+                    EmissionColorValue = 1f;
                 }
                 else
                 {
                     chargingFlash.Stop();
                     currentTime = 0f;
-                    lightRobot.intensity = 20f;
                     EmissionColorValue = 1f;
-
                 }
-
-                
             }
-
-            if ((EmissionColorValue < 1f) && !chargingFlash.isPlaying)
-            {
-                currentTime += Time.deltaTime;
-                EmissionColorValue = Mathf.Lerp(0f, 1f, currentTime / 3f);
-                lightRobot.intensity = EmissionColorValue * 20f;
-            }
-
-
             robotMAT.SetColor(EmissionColor, new Color(EmissionColorValue, EmissionColorValue, EmissionColorValue));
         }
     }
