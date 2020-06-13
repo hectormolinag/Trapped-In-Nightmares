@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         cameraNoise = normalCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         if (globalSceneLight != null)
-            globalSceneLight.intensity = 0.1f;
+            globalSceneLight.intensity = 0.15f;
 
         RenderSettings.fogDensity = 0.01f;
 
